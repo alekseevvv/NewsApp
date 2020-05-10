@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,7 @@ import static com.example.newsapp.ui.main.PlaceholderFragment.API_KEY;
  * A placeholder fragment containing a simple view.
  */
 public class FavorFragment extends Fragment {
-
+    private TextView txt_favor;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private PageViewModel pageViewModel;
     private RecyclerView recyclerView;
@@ -48,7 +49,7 @@ public class FavorFragment extends Fragment {
     private Button btn_news;
     private List<Articles> article = new ArrayList<>();
     private String source = "";
-    FavorAdapter adapter = null;
+    private FavorAdapter adapter = null;
 
 
     public static FavorFragment newInstance(int index) {
@@ -84,23 +85,25 @@ public class FavorFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         btn_news = root.findViewById(R.id.btn_get_news);
         btn_news.setOnClickListener(onClickListenert);
+        txt_favor = root.findViewById(R.id.txt_favor);
+
         source = "";
         getDataBase();
             return root;
         }
-    View.OnClickListener onClickListenert = new View.OnClickListener() {
+    private View.OnClickListener onClickListenert = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            if(boolj == true){
+            if(boolj){
                 getDataBase();
             }else
             LoadJson(source);
 
         }
     };
-        Boolean boolj = false;
-    public void LoadJson(String source){
+        private Boolean boolj = false;
+    private void LoadJson(String source){
         boolj = true;
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
@@ -109,6 +112,7 @@ public class FavorFragment extends Fragment {
         call.enqueue(new Callback<News>() {
             @Override
             public void onResponse(Call<News> call, Response<News> response) {
+                assert response.body() != null;
                 if (response.isSuccessful() && response.body().getArticle() != null){
 
                     if (!article.isEmpty()){
@@ -130,14 +134,11 @@ public class FavorFragment extends Fragment {
                 AppDataBase db = App.getInstance().getDb();
                 db.articlesDao().getall()
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<List<Articles>>() {
-                            @Override
-                            public void accept(List<Articles> art) throws Exception {
-                                adapter = new FavorAdapter(art, getActivity(),false);
-                                recyclerView.setAdapter(adapter);
-                                adapter.notifyDataSetChanged();
+                        .subscribe(art -> {
+                            adapter = new FavorAdapter(art, getActivity(),false);
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
 
-                            }
                         });
             }
         });
@@ -145,7 +146,7 @@ public class FavorFragment extends Fragment {
     }
 
     @SuppressLint("CheckResult")
-    public void getDataBase(){
+    private void getDataBase(){
         boolj = false;
         AppDataBase db = App.getInstance().getDb();
 
@@ -162,6 +163,8 @@ public class FavorFragment extends Fragment {
                         }
                         DbAdapter databaseAdapter = new DbAdapter(sour, getActivity());
                         recyclerView.setAdapter(databaseAdapter);
+                        if (layoutManager.getItemCount()==0){txt_favor.setText(R.string.empty);}
+                        else {txt_favor.setText("");}
                     }
                 });
     }

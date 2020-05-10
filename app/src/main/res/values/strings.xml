@@ -7,6 +7,8 @@
     <string name="add">Added</string>
     <string name="del">Deleted</string>
     <string name="notfound">Not found</string>
+    <string name="empty">List is empty</string>
+
 
 
 </resources>

@@ -39,6 +39,7 @@ public class SearchFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private RecyclerView recyclerView;
     private List<Articles> article;
+    private RecyclerView.LayoutManager layoutManager;
 
     public static SearchFragment newInstance(int index) {
         SearchFragment fragment = new SearchFragment();
@@ -66,7 +67,7 @@ public class SearchFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
         recyclerView = root.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         EditText editText = root.findViewById(R.id.editText);
         txt_internet = root.findViewById(R.id.txt_internet);
@@ -90,7 +91,7 @@ public class SearchFragment extends Fragment {
         });
         return root;
     }
-    public void LoadJson(CharSequence q){
+    private void LoadJson(CharSequence q){
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<News> call;
@@ -104,6 +105,8 @@ public class SearchFragment extends Fragment {
                     FavorAdapter adapter = new FavorAdapter(article, getActivity(),true);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                    if (layoutManager.getItemCount()==0){txt_internet.setText(R.string.notfound);}
+                    else {txt_internet.setText("");}
 
                 } else {
                     txt_internet.setText(R.string.int_desc);
