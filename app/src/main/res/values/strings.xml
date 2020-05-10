@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="tab_text_1">Chanel</string>
+    <string name="tab_text_2">Favorites</string>
+    <string name="tab_text_3">Search</string>
+    <string name="int_desc">Internet disconnected</string>
+    <string name="add">Added</string>
+    <string name="del">Deleted</string>
+    <string name="notfound">Not found</string>
+
+
+</resources>
