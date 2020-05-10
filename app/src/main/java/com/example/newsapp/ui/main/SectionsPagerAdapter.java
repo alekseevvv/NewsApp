@@ -30,7 +30,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = new Fragment();
         switch (position){
             case 0:
-                fragment = new PlaceholderFragment();
+                fragment = new ChannelFragment();
                 break;
             case 1:
                 fragment = new FavorFragment();

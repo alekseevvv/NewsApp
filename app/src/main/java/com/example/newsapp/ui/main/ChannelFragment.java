@@ -30,7 +30,7 @@ import retrofit2.Response;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class ChannelFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -42,8 +42,8 @@ public class PlaceholderFragment extends Fragment {
     private Adapter adapter;
     private TextView txt_internet;
 
-    public static PlaceholderFragment newInstance(int index) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    public static ChannelFragment newInstance(int index) {
+        ChannelFragment fragment = new ChannelFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         fragment.setArguments(bundle);

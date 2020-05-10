@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.newsapp.ui.main.PlaceholderFragment.API_KEY;
+import static com.example.newsapp.ui.main.ChannelFragment.API_KEY;
 
 /**
  * A placeholder fragment containing a simple view.
