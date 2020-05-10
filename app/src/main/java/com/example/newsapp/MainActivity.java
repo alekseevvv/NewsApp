@@ -10,9 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.newsapp.ui.main.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-
 public class MainActivity extends AppCompatActivity {
-
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
